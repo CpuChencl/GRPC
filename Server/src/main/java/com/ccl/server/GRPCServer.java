@@ -1,0 +1,17 @@
+package com.ccl.server;
+
+import io.grpc.BindableService;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+
+public class GRPCServer {
+    private static final int port = 9999;
+    public static void main( String[] args ) throws Exception {
+        Server server = ServerBuilder.
+                forPort(port)
+                .addService( (BindableService) new RPCDateServiceImpl() )
+                .build().start();
+        System.out.println( "grpc服务端启动成功, 端口=" + port );
+        server.awaitTermination();
+    }
+}
